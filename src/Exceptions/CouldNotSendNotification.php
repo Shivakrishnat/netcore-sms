@@ -1,11 +1,16 @@
 <?php
 
-namespace NotificationChannels\:channel_namespace\Exceptions;
+namespace NotificationChannels\NetCore\Exceptions;
 
-class CouldNotSendNotification extends \Exception
-{
-    public static function serviceRespondedWithAnError($response)
-    {
-        return new static("Descriptive error message.");
-    }
+use Exception;
+
+class CouldNotSendNotification extends Exception {
+	/**
+	 * @param Exception $exception
+	 * @return static
+	 */
+	public static function serviceRespondedWithAnError(Exception $exception)
+	{
+		return new static("NetCore service responded with an error '{$exception->getCode()}: {$exception->getMessage()}'");
+	}
 }

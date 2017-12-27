@@ -1,20 +1,22 @@
 {
-    "name": "laravel-notification-channels/:package_name",
-    "description": ":package_description",
-    "homepage": "https://github.com/laravel-notification-channels/:package_name",
+    "name": "Shivakrishnat/netcore-sms",
+    "description": "NetCore SMS Notification",
+    "homepage": "https://github.com/Shivakrishnat/netcore-sms",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": ":author_website",
+            "name": "Shivakrishna",
+            "email": "shivakrishna.t@omniware.in",
+            "homepage": "https://www.traknpay.com/",
             "role": "Developer"
         }
     ],
     "require": {
         "php": ">=5.6.4",
         "illuminate/notifications": "^5.3",
-        "illuminate/support": "^5.1|^5.2|^5.3"
+        "illuminate/support": "^5.1|^5.2|^5.3",
+        "illuminate/queue": "^5.3",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "mockery/mockery": "^0.9.5",
