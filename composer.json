@@ -2,6 +2,7 @@
     "name": "Shivakrishnat/netcore-sms",
     "description": "NetCore SMS Notification",
     "homepage": "https://github.com/Shivakrishnat/netcore-sms",
+    "minimum-stability": "dev",
     "license": "MIT",
     "authors": [
         {
