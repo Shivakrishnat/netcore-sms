@@ -38,7 +38,7 @@ class NetCoreClient {
 				'feed_id'  => $this->feed_id,
 				'username' => $this->username,
 				'password' => $this->password,
-				'to'       => $message->recipient,
+				'to'       => $message->to,
 				'text'     => $message,
 			]);
 		} catch (Exception $exception) {

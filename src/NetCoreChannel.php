@@ -29,7 +29,7 @@ class NetCoreChannel {
 			$message = NetCoreMessage::create($message);
 		}
 		if ($to = $notifiable->routeNotificationFor('netcore')) {
-			$message->setRecipients($to);
+			$message->to($to);
 		}
 		$this->client->send($message);
 	}

@@ -4,37 +4,54 @@ namespace NotificationChannels\NetCore;
 
 class NetCoreMessage {
 
-	public $body;
-	public $recipient;
+	/**
+	 * The message content.
+	 *
+	 * @var string
+	 */
+	public $message;
 
-	public static function create($body = '')
+	/**
+	 * The phone number the message should be sent from.
+	 *
+	 * @var string
+	 */
+	public $to;
+
+	/**
+	 * Create a new message instance.
+	 *
+	 * @param  string $message
+	 * @return void
+	 */
+	public function __construct($message = '')
 	{
-		return new static($body);
+		$this->message = $message;
 	}
 
-	public function __construct($body = '')
+	/**
+	 * Set the message content.
+	 *
+	 * @param  string $content
+	 * @return $this
+	 */
+	public function message($message)
 	{
-		if (!empty($body)) {
-			$this->body = trim($body);
-		}
-	}
-
-	public function setBody($body)
-	{
-		$this->body = trim($body);
+		$this->message = $message;
 
 		return $this;
 	}
 
-	public function setrecipient($recipient)
+	/**
+	 * Set the phone number the message should be sent from.
+	 *
+	 * @param  string $number
+	 * @return $this
+	 */
+	public function to($to = false)
 	{
-		$this->recipient = $recipient;
+		$this->to = $to;
 
 		return $this;
-	}
-
-	public function toJson()
-	{
-		return json_encode($this);
 	}
 }
