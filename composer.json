@@ -4,14 +4,6 @@
     "homepage": "https://github.com/Shivakrishnat/netcore-sms",
     "minimum-stability": "dev",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Shivakrishna",
-            "email": "shivakrishna.t@omniware.in",
-            "homepage": "https://www.traknpay.com/",
-            "role": "Developer"
-        }
-    ],
     "require": {
         "php": ">=5.6.4",
         "illuminate/notifications": "^5.3",
@@ -25,12 +17,12 @@
     },
     "autoload": {
         "psr-4": {
-            "NotificationChannels\\:channel_namespace\\": "src"
+            "NotificationChannels\\NetCoreSMS\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NotificationChannels\\:channel_namespace\\Test\\": "tests"
+            "NotificationChannels\\NetCoreSMS\\Test\\": "tests"
         }
     },
     "scripts": {
