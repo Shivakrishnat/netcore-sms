@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationChannels\NetCore;
+namespace NotificationChannels\NetCoreSms;
 
 class NetCoreMessage {
 

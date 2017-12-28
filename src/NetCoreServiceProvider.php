@@ -1,11 +1,11 @@
 <?php
 
-namespace NotificationChannels\NetCore;
+namespace NotificationChannels\NetCoreSms;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
-use NotificationChannels\NetCore\Exceptions\InvalidConfiguration;
+use NotificationChannels\NetCoreSms\Exceptions\InvalidConfiguration;
 
 class NetCoreServiceProvider extends ServiceProvider {
 	/**
@@ -16,12 +16,12 @@ class NetCoreServiceProvider extends ServiceProvider {
 		$this->app->when(NetCoreChannel::class)
 			->needs(NetCoreClient::class)
 			->give(function () {
-				$config = Config::get('services.netcore');
+				$config = (object)Config::get('services.netcore');
 				if (is_null($config)) {
 					throw InvalidConfiguration::configurationNotSet();
 				}
 
-				return new NetCoreClient(new Client(), $config['feed_id'], $config['username'], $config['password']);
+				return new NetCoreClient(new Client(), $config->feed_id, $config->username, $config->password);
 			});
 	}
 }

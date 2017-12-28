@@ -1,6 +1,6 @@
 <?php
 
-namespace NotificationChannels\NetCore\Exceptions;
+namespace NotificationChannels\NetCoreSms\Exceptions;
 
 use Exception;
 

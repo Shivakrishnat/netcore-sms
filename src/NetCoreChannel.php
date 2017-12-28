@@ -1,12 +1,12 @@
 <?php
 
-namespace NotificationChannels\NetCore;
+namespace NotificationChannels\NetCoreSms;
 
 use Illuminate\Notifications\Notification;
 
 class NetCoreChannel {
 
-	/** @var \NotificationChannels\NetCore\NetCoreClient */
+	/** @var \NotificationChannels\NetCoreSms\NetCoreClient */
 	protected $client;
 
 	public function __construct(NetCoreClient $client)
@@ -20,7 +20,6 @@ class NetCoreChannel {
 	 * @param mixed $notifiable
 	 * @param \Illuminate\Notifications\Notification $notification
 	 *
-	 * @throws \NotificationChannels\NetCore\Exceptions\CouldNotSendNotification
 	 */
 	public function send($notifiable, Notification $notification)
 	{

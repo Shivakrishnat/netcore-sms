@@ -1,10 +1,10 @@
 <?php
 
-namespace NotificationChannels\NetCore;
+namespace NotificationChannels\NetCoreSms;
 
 use Exception;
 use GuzzleHttp\Client;
-use NotificationChannels\NetCore\Exceptions\CouldNotSendNotification;
+use NotificationChannels\NetCoreSms\Exceptions\CouldNotSendNotification;
 
 class NetCoreClient {
 
@@ -34,15 +34,30 @@ class NetCoreClient {
 	public function send(NetCoreMessage $message)
 	{
 		try {
-			$this->client->request('POST', 'https://bulkpush.mytoday.com/BulkSms/SingleMsgApi', [
-				'feed_id'  => $this->feed_id,
-				'username' => $this->username,
-				'password' => $this->password,
-				'to'       => $message->to,
-				'text'     => $message,
-			]);
+			$url = $this->buildUri($message);
+			$this->client->request('POST', $url);
 		} catch (Exception $exception) {
 			throw CouldNotSendNotification::serviceRespondedWithAnError($exception);
 		}
+	}
+
+	/**
+	 * Build Uri
+	 *
+	 * @param $to
+	 * @param $message
+	 * @return mixed
+	 */
+	public function buildUri($message)
+	{
+		$params = [
+			'feedid'   => $this->feed_id,
+			'username' => $this->username,
+			'password' => $this->password,
+			'to'       => $message->to,
+			'text'     => $message->message,
+		];
+
+		return 'https://bulkpush.mytoday.com/BulkSms/SingleMsgApi' . '?' . http_build_query($params);
 	}
 }
