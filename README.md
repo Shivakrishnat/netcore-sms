@@ -54,7 +54,7 @@ You must install the service provider:
 // config/app.php
 'providers' => [
     ...
-    NotificationChannels\Messagebird\MessagebirdServiceProvider::class,
+    NotificationChannels\NetCoreSms\NetCoreServiceProvider::class,
 ],
 ```
 
@@ -65,7 +65,7 @@ Add the environment variables to your `config/services.php`:
 ```php
 // config/services.php
 ...
-'messagebird' => [
+'netcore' => [
     'feed_id' => env('NETCORE_FEED_ID'),
     'username' => env('NETCORE_USERNAME'),
     'password' => env('NETCORE_PASSWORD'),
