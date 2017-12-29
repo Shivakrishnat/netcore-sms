@@ -4,7 +4,7 @@ Here's the latest documentation on Laravel 5.3 Notifications System:
 
 https://laravel.com/docs/master/notifications
 
-# A Boilerplate repo for contributions
+# NetCore notifications channel for Laravel 5.3 and above.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/laravel-notification-channels/:package_name.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/:package_name)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -15,9 +15,9 @@ https://laravel.com/docs/master/notifications
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/laravel-notification-channels/:package_name/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/laravel-notification-channels/:package_name/?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/laravel-notification-channels/:package_name.svg?style=flat-square)](https://packagist.org/packages/laravel-notification-channels/:package_name)
 
-This package makes it easy to send notifications using [:service_name](link to service) with Laravel 5.3.
+This package makes it easy to send notifications using [NetCoreSMS](link to service) with Laravel 5.3.
 
-**Note:** Replace ```:channel_namespace``` ```:service_name``` ```:author_name``` ```:author_username``` ```:author_website``` ```:author_email``` ```:package_name``` ```:package_description``` ```:style_ci_id``` ```:sensio_labs_id``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md), [composer.json](composer.json) and other files, then delete this line.
+**Note:** Replace ```:channel_namespace``` ```NetCoreSMS``` ```:author_name``` ```:author_username``` ```:author_website``` ```:author_email``` ```:package_name``` ```:package_description``` ```:style_ci_id``` ```:sensio_labs_id``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md), [composer.json](composer.json) and other files, then delete this line.
 **Tip:** Use "Find in Path/Files" in your code editor to find these keywords within the package directory and replace all occurences with your specified term.
 
 This is where your description should go. Add a little code example so build can understand real quick how the package can be used. Try and limit it to a paragraph or two.
@@ -25,9 +25,9 @@ This is where your description should go. Add a little code example so build can
 
 
 ## Contents
-
+- [Requirements](#requirements)
 - [Installation](#installation)
-	- [Setting up the :service_name service](#setting-up-the-:service_name-service)
+	- [Setting up the NetCoreSMS service](#setting-up-the-NetCoreSMS-service)
 - [Usage](#usage)
 	- [Available Message methods](#available-message-methods)
 - [Changelog](#changelog)
@@ -38,21 +38,66 @@ This is where your description should go. Add a little code example so build can
 - [License](#license)
 
 
+## Requirements
+- [Sign up](https://netcore.in/products/marketing-cloud/channels/sms/) for a Netcore account
+- After registration you will get feed_id, username and password
+
 ## Installation
+You can install the package via composer:
+``` bash
+composer require laravel-notification-channels/netcoresms
+```
 
-Please also include the steps for any third-party service setup that's required for this package.
+You must install the service provider:
 
-### Setting up the :service_name service
+```php
+// config/app.php
+'providers' => [
+    ...
+    NotificationChannels\Messagebird\MessagebirdServiceProvider::class,
+],
+```
 
-Optionally include a few steps how users can set up the service.
+### Setting up the NetCoreSMS service
+
+Add the environment variables to your `config/services.php`:
+
+```php
+// config/services.php
+...
+'messagebird' => [
+    'feed_id' => env('NETCORE_FEED_ID'),
+    'username' => env('NETCORE_USERNAME'),
+    'password' => env('NETCORE_PASSWORD'),
+],
+...
+```
 
 ## Usage
 
-Some code examples, make it clear how to use the package
+Now you can use the channel in your `via()` method inside the notification:
 
 ### Available Message methods
 
-A list of all available options
+``` php
+use Illuminate\Notifications\Notification;
+use NotificationChannels\NetCoreSms\NetCoreChannel;
+use NotificationChannels\NetCoreSms\NetCoreMessage;
+
+class VpsServerOrdered extends Notification
+{
+    public function via($notifiable)
+   	{
+   	    return [NetCoreChannel::class];
+   	}
+
+    
+    public function toNetCore($notifiable)
+    {
+        return (new NetCoreMessage("Your One Time Password (OTP) from TrakNPay is " . $this->otp))->to($notifiable->mobile);
+    }
+}
+```
 
 ## Changelog
 
@@ -66,7 +111,7 @@ $ composer test
 
 ## Security
 
-If you discover any security related issues, please email :author_email instead of using the issue tracker.
+If you discover any security related issues, please email psteenbergen@gmail.com instead of using the issue tracker.
 
 ## Contributing
 
